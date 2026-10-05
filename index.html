@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TRASHTALKSTUDiOZ | Memo Board</title>
+    <meta
+      name="description"
+      content="TRASHTALKSTUDiOZ is a crypto and web3 creative lab building creator coin, culture, and onchain experiences."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-mark">TS</div>
+          <div>
+            <p class="eyebrow">Empire // Crypto // Web3</p>
+            <h1>TRASHTALKSTUDiOZ</h1>
+          </div>
+        </div>
+
+        <nav class="top-actions" aria-label="Board controls">
+          <button id="add-note" class="toolbar-btn accent">+ Add Note</button>
+          <button id="add-sticker" class="toolbar-btn">+ Add Sticker</button>
+          <button id="toggle-edit" class="toolbar-btn ghost">Edit Mode</button>
+          <button id="reset-board" class="toolbar-btn danger">Reset</button>
+        </nav>
+      </header>
+
+      <main class="board-wrap">
+        <div id="board" class="board" aria-live="polite">
+          <article class="note hero-note" data-id="hero" style="--note-color: #f7cc5a; left: 4%; top: 6%; width: 420px; height: 190px; transform: rotate(-1deg);">
+            <div class="note-pin"></div>
+            <p class="label">EMPIRE SIGNAL</p>
+            <h2 contenteditable="false">TRASHTALKSTUDiOZ</h2>
+            <p contenteditable="false" class="meta-line">Creator coin / culture / onchain experiments / web3 builder energy</p>
+            <div class="cta-row">
+              <a href="#" class="chip-link">Zora</a>
+              <a href="#" class="chip-link">Base</a>
+              <a href="#" class="chip-link">Onchain</a>
+            </div>
+          </article>
+
+          <article class="note" data-id="coin" style="--note-color: #a7f0d4; left: 42%; top: 12%; width: 300px; height: 200px; transform: rotate(2deg);">
+            <div class="note-pin"></div>
+            <p class="label">CREATOR COIN</p>
+            <h3 contenteditable="false">TRASHTALK</h3>
+            <p contenteditable="false">A creator ecosystem for culture, momentum, and community-powered value.</p>
+            <div class="link-stack">
+              <a href="#" contenteditable="false">Zora coin</a>
+              <a href="#" contenteditable="false">Base chain</a>
+            </div>
+          </article>
+
+          <article class="note" data-id="projects" style="--note-color: #f5b7d7; left: 62%; top: 40%; width: 295px; height: 250px; transform: rotate(-3deg);">
+            <div class="note-pin"></div>
+            <p class="label">PROJECTS</p>
+            <ul contenteditable="false">
+              <li>Creator coin launch</li>
+              <li>Base-native drops</li>
+              <li>Web3 identity stack</li>
+              <li>Culture-driven media</li>
+            </ul>
+          </article>
+
+          <article class="note" data-id="build" style="--note-color: #b9d7ff; left: 18%; top: 44%; width: 280px; height: 230px; transform: rotate(1deg);">
+            <div class="note-pin"></div>
+            <p class="label">BUILD MODE</p>
+            <p contenteditable="false">Designing digital products, social experiments, and creator-first utility around the onchain economy.</p>
+            <div class="mini-grid">
+              <span>Brand</span>
+              <span>Drop</span>
+              <span>Utility</span>
+              <span>Culture</span>
+            </div>
+          </article>
+
+          <article class="note" data-id="brief" style="--note-color: #ffc9a1; left: 38%; top: 56%; width: 330px; height: 200px; transform: rotate(-2deg);">
+            <div class="note-pin"></div>
+            <p class="label">EMPIRE BRIEF</p>
+            <p contenteditable="false">Self-built media + product lab. Built to make internet culture, rewards, and ownership feel loud, live, and collectible.</p>
+          </article>
+
+          <article class="note" data-id="links" style="--note-color: #d9f7a8; left: 72%; top: 12%; width: 260px; height: 185px; transform: rotate(4deg);">
+            <div class="note-pin"></div>
+            <p class="label">LINKS</p>
+            <div class="stack-links" contenteditable="false">
+              <a href="#">Twitter / X</a>
+              <a href="#">Farcaster</a>
+              <a href="#">Instagram</a>
+            </div>
+          </article>
+
+          <article class="sticker sticker-circle" data-id="sticker-1" style="left: 55%; top: 74%; --sticker-color: #ff5d73; --sticker-rotate: -12deg;">
+            <span contenteditable="false">ZORA</span>
+            <div class="sticker-pin"></div>
+          </article>
+
+          <article class="sticker sticker-blob" data-id="sticker-2" style="left: 72%; top: 70%; --sticker-color: #4de1c3; --sticker-rotate: 8deg;">
+            <span contenteditable="false">BASE</span>
+            <div class="sticker-pin"></div>
+          </article>
+
+          <article class="sticker sticker-star" data-id="sticker-3" style="left: 22%; top: 76%; --sticker-color: #ffd166; --sticker-rotate: 10deg;">
+            <span contenteditable="false">DROP</span>
+            <div class="sticker-pin"></div>
+          </article>
+
+          <article class="sticker sticker-hex" data-id="sticker-4" style="left: 9%; top: 24%; --sticker-color: #9b8cff; --sticker-rotate: -8deg;">
+            <span contenteditable="false">EMPIRE</span>
+            <div class="sticker-pin"></div>
+          </article>
+        </div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
