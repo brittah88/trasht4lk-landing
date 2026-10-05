@@ -5,6 +5,7 @@ const toggleEditBtn = document.querySelector('#toggle-edit');
 const resetBoardBtn = document.querySelector('#reset-board');
 
 const STORAGE_KEY = 'trashtalkstudioz-memo-board';
+
 const defaultLayout = {
   notes: [
     {
@@ -12,55 +13,55 @@ const defaultLayout = {
       type: 'note',
       left: '4%',
       top: '6%',
-      width: '420px',
+      width: '460px',
       height: '190px',
       rotate: '-1deg',
-      color: '#f7cc5a',
-      html: `<div class="note-pin"></div><p class="label">EMPIRE SIGNAL</p><h2>TRASHTALKSTUDiOZ</h2><p class="meta-line">Creator coin / culture / onchain experiments / web3 builder energy</p><div class="cta-row"><a href="#" class="chip-link">Zora</a><a href="#" class="chip-link">Base</a><a href="#" class="chip-link">Onchain</a></div>`
+      color: '#f7ea65',
+      html: `<div class="note-pin"></div><p class="label">EMPIRE SIGNAL</p><h2>TRASHTALKSTUDiOZ</h2><p class="meta-line">Creator coin / toxic culture / onchain experiments / web3 builder energy</p><div class="cta-row"><a href="#" class="chip-link">Zora</a><a href="#" class="chip-link">Base</a><a href="#" class="chip-link">Onchain</a></div>`
     },
     {
       id: 'coin',
       type: 'note',
       left: '42%',
       top: '12%',
-      width: '300px',
-      height: '200px',
+      width: '320px',
+      height: '220px',
       rotate: '2deg',
       color: '#a7f0d4',
-      html: `<div class="note-pin"></div><p class="label">CREATOR COIN</p><h3>TRASHTALK</h3><p>A creator ecosystem for culture, momentum, and community-powered value.</p><div class="link-stack"><a href="#">Zora coin</a><a href="#">Base chain</a></div>`
+      html: `<div class="note-pin"></div><p class="label">CREATOR COIN</p><h3>TRASHTALK</h3><p>Built for culture, hype, and creator-first value in the onchain economy.</p><div class="link-stack"><a href="#">Zora coin</a><a href="#">Base chain</a></div>`
     },
     {
       id: 'projects',
       type: 'note',
-      left: '62%',
-      top: '40%',
-      width: '295px',
+      left: '64%',
+      top: '38%',
+      width: '290px',
       height: '250px',
       rotate: '-3deg',
       color: '#f5b7d7',
-      html: `<div class="note-pin"></div><p class="label">PROJECTS</p><ul><li>Creator coin launch</li><li>Base-native drops</li><li>Web3 identity stack</li><li>Culture-driven media</li></ul>`
+      html: `<div class="note-pin"></div><p class="label">PROJECTS</p><ul><li>Creator coin launch</li><li>Base-native drops</li><li>Web3 identity stack</li><li>Culture-fueled media</li></ul>`
     },
     {
       id: 'build',
       type: 'note',
-      left: '18%',
+      left: '16%',
       top: '44%',
-      width: '280px',
-      height: '230px',
+      width: '300px',
+      height: '235px',
       rotate: '1deg',
       color: '#b9d7ff',
-      html: `<div class="note-pin"></div><p class="label">BUILD MODE</p><p>Designing digital products, social experiments, and creator-first utility around the onchain economy.</p><div class="mini-grid"><span>Brand</span><span>Drop</span><span>Utility</span><span>Culture</span></div>`
+      html: `<div class="note-pin"></div><p class="label">BUILD MODE</p><p>From internet chaos to utility. Launching memetic brand systems and creator-led web3 experiences.</p><div class="mini-grid"><span>Brand</span><span>Drop</span><span>Utility</span><span>Culture</span></div>`
     },
     {
       id: 'brief',
       type: 'note',
-      left: '38%',
-      top: '56%',
+      left: '37%',
+      top: '58%',
       width: '330px',
       height: '200px',
       rotate: '-2deg',
       color: '#ffc9a1',
-      html: `<div class="note-pin"></div><p class="label">EMPIRE BRIEF</p><p>Self-built media + product lab. Built to make internet culture, rewards, and ownership feel loud, live, and collectible.</p>`
+      html: `<div class="note-pin"></div><p class="label">EMPIRE BRIEF</p><p>Self-built internet empire for creators, liquidity, culture, and high-voltage community.</p>`
     },
     {
       id: 'links',
@@ -75,10 +76,10 @@ const defaultLayout = {
     }
   ],
   stickers: [
-    { id: 'sticker-1', type: 'sticker', left: '55%', top: '74%', width: '120px', height: '120px', rotate: '-12deg', color: '#ff5d73', text: 'ZORA', shape: 'circle' },
-    { id: 'sticker-2', type: 'sticker', left: '72%', top: '70%', width: '120px', height: '120px', rotate: '8deg', color: '#4de1c3', text: 'BASE', shape: 'blob' },
-    { id: 'sticker-3', type: 'sticker', left: '22%', top: '76%', width: '120px', height: '120px', rotate: '10deg', color: '#ffd166', text: 'DROP', shape: 'star' },
-    { id: 'sticker-4', type: 'sticker', left: '9%', top: '24%', width: '120px', height: '120px', rotate: '-8deg', color: '#9b8cff', text: 'EMPIRE', shape: 'hex' }
+    { id: 'sticker-1', type: 'sticker', left: '58%', top: '74%', width: '120px', height: '120px', rotate: '-12deg', color: '#ff5d73', text: 'ZORA', shape: 'circle' },
+    { id: 'sticker-2', type: 'sticker', left: '71%', top: '68%', width: '120px', height: '120px', rotate: '8deg', color: '#4de1c3', text: 'BASE', shape: 'blob' },
+    { id: 'sticker-3', type: 'sticker', left: '22%', top: '78%', width: '120px', height: '120px', rotate: '10deg', color: '#ffd166', text: 'DROP', shape: 'star' },
+    { id: 'sticker-4', type: 'sticker', left: '8%', top: '26%', width: '120px', height: '120px', rotate: '-8deg', color: '#9b8cff', text: 'EMPIRE', shape: 'hex' }
   ]
 };
 
@@ -86,7 +87,7 @@ let editMode = false;
 let dragState = null;
 
 function createElementFromTemplate(item) {
-  const el = document.createElement(item.type === 'note' ? 'article' : 'article');
+  const el = document.createElement('article');
   el.className = item.type === 'note' ? 'note' : 'sticker';
   el.dataset.id = item.id;
   el.style.left = item.left;
@@ -95,98 +96,139 @@ function createElementFromTemplate(item) {
   el.style.height = item.height;
   el.style.setProperty('--note-color', item.color || '#f7cc5a');
   el.style.setProperty('--sticker-color', item.color || '#ff5d73');
-  el.style.setProperty('--sticker-rotate', item.rotate || '0deg');
   el.style.transform = `rotate(${item.rotate || '0deg'})`;
 
   if (item.type === 'note') {
     el.innerHTML = item.html;
-    el.classList.add('note');
   } else {
-    const stickerText = item.text || 'NEW';
     const shapeClass = item.shape || 'circle';
     el.classList.add(`sticker-${shapeClass}`);
-    el.innerHTML = `<span>${stickerText}</span><div class="sticker-pin"></div>`;
-    el.style.transform = `rotate(${item.rotate || '0deg'})`;
+    el.innerHTML = `<span>${item.text || 'NEW'}</span><div class="sticker-pin"></div>`;
   }
 
   return el;
 }
 
 function getBoardState() {
-  return {
-    notes: [...board.querySelectorAll('.note')].map((note) => ({
+  const notes = [...board.querySelectorAll('.note')].map((note) => {
+    const transform = note.style.transform || '';
+    const match = transform.match(/rotate\(([^)]+)\)/);
+    return {
       id: note.dataset.id,
       left: note.style.left,
       top: note.style.top,
       width: note.style.width,
       height: note.style.height,
-      rotate: note.style.transform.includes('rotate') ? note.style.transform.match(/rotate\(([^)]+)\)/)?.[1] || '0deg' : '0deg',
+      rotate: match ? match[1] : '0deg',
       color: getComputedStyle(note).getPropertyValue('--note-color').trim(),
       html: note.innerHTML
-    })),
-    stickers: [...board.querySelectorAll('.sticker')].map((sticker) => ({
+    };
+  });
+
+  const stickers = [...board.querySelectorAll('.sticker')].map((sticker) => {
+    const transform = sticker.style.transform || '';
+    const match = transform.match(/rotate\(([^)]+)\)/);
+    const shape = [...sticker.classList].find((cls) => cls.startsWith('sticker-'))?.replace('sticker-', '') || 'circle';
+    return {
       id: sticker.dataset.id,
       left: sticker.style.left,
       top: sticker.style.top,
       width: sticker.style.width,
       height: sticker.style.height,
-      rotate: sticker.style.transform.includes('rotate') ? sticker.style.transform.match(/rotate\(([^)]+)\)/)?.[1] || '0deg' : '0deg',
+      rotate: match ? match[1] : '0deg',
       color: getComputedStyle(sticker).getPropertyValue('--sticker-color').trim(),
       text: sticker.querySelector('span')?.textContent || 'NEW',
-      shape: [...sticker.classList].find((cls) => cls.startsWith('sticker-'))?.replace('sticker-', '') || 'circle'
-    }))
-  };
+      shape
+    };
+  });
+
+  return { notes, stickers };
 }
 
 function saveBoardState() {
-  const state = getBoardState();
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(getBoardState()));
+}
+
+function renderDefaultBoard() {
+  board.innerHTML = `
+    <div class="toxic-bg-text">TRASHTALKSTUDiOZ</div>
+    <div class="hero-portrait" aria-label="Toxic glam portrait illustration">
+      <div class="portrait-hair"></div>
+      <div class="portrait-head">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="nose"></div>
+        <div class="smile"></div>
+      </div>
+      <div class="portrait-gas-mask">
+        <div class="mask-top"></div>
+        <div class="mask-body"></div>
+        <div class="mask-filter"></div>
+      </div>
+      <div class="trash-bin"></div>
+      <div class="drip drip-1"></div>
+      <div class="drip drip-2"></div>
+      <div class="drip drip-3"></div>
+    </div>
+  `;
+
+  defaultLayout.notes.forEach((note) => {
+    board.appendChild(createElementFromTemplate({ ...note, type: 'note' }));
+  });
+
+  defaultLayout.stickers.forEach((sticker) => {
+    board.appendChild(createElementFromTemplate({ ...sticker, type: 'sticker' }));
+  });
+
+  bindInteractiveItems();
+  refreshEditMode();
+  saveBoardState();
 }
 
 function restoreBoardState() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) {
     renderDefaultBoard();
     return;
   }
 
   try {
-    const parsed = JSON.parse(raw);
+    const parsed = JSON.parse(saved);
     if (!parsed.notes || !parsed.stickers) {
       renderDefaultBoard();
       return;
     }
 
-    board.innerHTML = '';
+    board.innerHTML = `
+      <div class="toxic-bg-text">TRASHTALKSTUDiOZ</div>
+      <div class="hero-portrait" aria-label="Toxic glam portrait illustration">
+        <div class="portrait-hair"></div>
+        <div class="portrait-head">
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+          <div class="nose"></div>
+          <div class="smile"></div>
+        </div>
+        <div class="portrait-gas-mask">
+          <div class="mask-top"></div>
+          <div class="mask-body"></div>
+          <div class="mask-filter"></div>
+        </div>
+        <div class="trash-bin"></div>
+        <div class="drip drip-1"></div>
+        <div class="drip drip-2"></div>
+        <div class="drip drip-3"></div>
+      </div>
+    `;
 
-    parsed.notes.forEach((note) => {
-      const el = createElementFromTemplate({ ...note, type: 'note' });
-      board.appendChild(el);
-    });
-
-    parsed.stickers.forEach((sticker) => {
-      const el = createElementFromTemplate({ ...sticker, type: 'sticker' });
-      board.appendChild(el);
-    });
+    parsed.notes.forEach((note) => board.appendChild(createElementFromTemplate({ ...note, type: 'note' })));
+    parsed.stickers.forEach((sticker) => board.appendChild(createElementFromTemplate({ ...sticker, type: 'sticker' })));
 
     bindInteractiveItems();
     refreshEditMode();
   } catch (error) {
     renderDefaultBoard();
   }
-}
-
-function renderDefaultBoard() {
-  board.innerHTML = '';
-  defaultLayout.notes.forEach((note) => {
-    board.appendChild(createElementFromTemplate({ ...note, type: 'note' }));
-  });
-  defaultLayout.stickers.forEach((sticker) => {
-    board.appendChild(createElementFromTemplate({ ...sticker, type: 'sticker' }));
-  });
-  bindInteractiveItems();
-  refreshEditMode();
-  saveBoardState();
 }
 
 function makeDraggable(item) {
@@ -200,11 +242,7 @@ function makeDraggable(item) {
       target: item,
       offsetX: event.clientX - itemRect.left,
       offsetY: event.clientY - itemRect.top,
-      boardRect,
-      startX: itemRect.left - boardRect.left,
-      startY: itemRect.top - boardRect.top,
-      startPointerX: event.clientX,
-      startPointerY: event.clientY
+      boardRect
     };
 
     item.setPointerCapture(event.pointerId);
@@ -225,15 +263,15 @@ function makeDraggable(item) {
 
   item.addEventListener('pointerup', () => {
     if (dragState && dragState.target === item) {
-      saveBoardState();
       dragState = null;
+      saveBoardState();
     }
   });
 
   item.addEventListener('pointerleave', () => {
     if (dragState && dragState.target === item) {
-      saveBoardState();
       dragState = null;
+      saveBoardState();
     }
   });
 }
@@ -249,11 +287,7 @@ function bindInteractiveItems() {
 function refreshEditMode() {
   document.body.classList.toggle('edit-mode', editMode);
   [...document.querySelectorAll('.note, .sticker')].forEach((item) => {
-    const enabled = editMode;
-    item.setAttribute('contenteditable', enabled ? 'true' : 'false');
-    if (!enabled) {
-      item.blur();
-    }
+    item.setAttribute('contenteditable', editMode ? 'true' : 'false');
   });
   toggleEditBtn.textContent = editMode ? 'Done Editing' : 'Edit Mode';
 }
@@ -287,6 +321,7 @@ function addSticker() {
   const shape = shapes[Math.floor(Math.random() * shapes.length)];
   const color = colors[Math.floor(Math.random() * colors.length)];
   const pickText = ['ZORA', 'BASE', 'DROP', 'MEMO', 'EMPIRE', 'PULSE'];
+
   sticker.className = 'sticker';
   sticker.dataset.id = `sticker-${Date.now()}`;
   sticker.style.left = '50%';
@@ -294,10 +329,10 @@ function addSticker() {
   sticker.style.width = '120px';
   sticker.style.height = '120px';
   sticker.style.setProperty('--sticker-color', color);
-  sticker.style.setProperty('--sticker-rotate', `${(Math.random() * 28 - 14).toFixed(1)}deg`);
   sticker.style.transform = `rotate(${(Math.random() * 28 - 14).toFixed(1)}deg)`;
   sticker.classList.add(`sticker-${shape}`);
   sticker.innerHTML = `<span>${pickText[Math.floor(Math.random() * pickText.length)]}</span><div class="sticker-pin"></div>`;
+
   board.appendChild(sticker);
   makeDraggable(sticker);
   sticker.setAttribute('contenteditable', editMode ? 'true' : 'false');
@@ -319,114 +354,5 @@ toggleEditBtn.addEventListener('click', () => {
 resetBoardBtn.addEventListener('click', resetBoard);
 
 restoreBoardState();
-
 window.addEventListener('beforeunload', saveBoardState);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
