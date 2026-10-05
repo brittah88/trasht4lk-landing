@@ -4,16 +4,16 @@ const addStickerBtn = document.querySelector('#add-sticker');
 const toggleEditBtn = document.querySelector('#toggle-edit');
 const resetBoardBtn = document.querySelector('#reset-board');
 
-const STORAGE_KEY = 'trashtalkstudioz-memo-board';
+const STORAGE_KEY = 'trashtalkstudioz-toxic-board';
 
 const defaultLayout = {
   notes: [
     {
       id: 'hero',
       type: 'note',
-      left: '4%',
-      top: '6%',
-      width: '460px',
+      left: '2%',
+      top: '8%',
+      width: '430px',
       height: '190px',
       rotate: '-1deg',
       color: '#f7ea65',
@@ -23,7 +23,7 @@ const defaultLayout = {
       id: 'coin',
       type: 'note',
       left: '42%',
-      top: '12%',
+      top: '16%',
       width: '320px',
       height: '220px',
       rotate: '2deg',
@@ -33,7 +33,7 @@ const defaultLayout = {
     {
       id: 'projects',
       type: 'note',
-      left: '64%',
+      left: '62%',
       top: '38%',
       width: '290px',
       height: '250px',
@@ -44,8 +44,8 @@ const defaultLayout = {
     {
       id: 'build',
       type: 'note',
-      left: '16%',
-      top: '44%',
+      left: '12%',
+      top: '48%',
       width: '300px',
       height: '235px',
       rotate: '1deg',
@@ -55,8 +55,8 @@ const defaultLayout = {
     {
       id: 'brief',
       type: 'note',
-      left: '37%',
-      top: '58%',
+      left: '38%',
+      top: '62%',
       width: '330px',
       height: '200px',
       rotate: '-2deg',
@@ -67,7 +67,7 @@ const defaultLayout = {
       id: 'links',
       type: 'note',
       left: '72%',
-      top: '12%',
+      top: '16%',
       width: '260px',
       height: '185px',
       rotate: '4deg',
@@ -76,15 +76,47 @@ const defaultLayout = {
     }
   ],
   stickers: [
-    { id: 'sticker-1', type: 'sticker', left: '58%', top: '74%', width: '120px', height: '120px', rotate: '-12deg', color: '#ff5d73', text: 'ZORA', shape: 'circle' },
+    { id: 'sticker-1', type: 'sticker', left: '56%', top: '72%', width: '120px', height: '120px', rotate: '-12deg', color: '#ff5d73', text: 'ZORA', shape: 'circle' },
     { id: 'sticker-2', type: 'sticker', left: '71%', top: '68%', width: '120px', height: '120px', rotate: '8deg', color: '#4de1c3', text: 'BASE', shape: 'blob' },
-    { id: 'sticker-3', type: 'sticker', left: '22%', top: '78%', width: '120px', height: '120px', rotate: '10deg', color: '#ffd166', text: 'DROP', shape: 'star' },
-    { id: 'sticker-4', type: 'sticker', left: '8%', top: '26%', width: '120px', height: '120px', rotate: '-8deg', color: '#9b8cff', text: 'EMPIRE', shape: 'hex' }
+    { id: 'sticker-3', type: 'sticker', left: '22%', top: '76%', width: '120px', height: '120px', rotate: '10deg', color: '#ffd166', text: 'DROP', shape: 'star' },
+    { id: 'sticker-4', type: 'sticker', left: '7%', top: '22%', width: '120px', height: '120px', rotate: '-8deg', color: '#9b8cff', text: 'EMPIRE', shape: 'hex' }
   ]
 };
 
 let editMode = false;
 let dragState = null;
+
+function makeBoardArt() {
+  board.innerHTML = `
+    <div class="toxic-blob one"></div>
+    <div class="toxic-blob two"></div>
+    <div class="toxic-blob three"></div>
+    <div class="brand-burst"><span class="at">@</span>TRASHTALKSTUDiOZ</div>
+
+    <div class="portrait-scene">
+      <div class="hair"></div>
+      <div class="face">
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="nose"></div>
+        <div class="smile"></div>
+      </div>
+      <div class="gas-mask"><div class="filter"></div></div>
+      <div class="trashbin"></div>
+      <div class="wrapper-rad"></div>
+      <div class="sludge sludge-1"></div>
+      <div class="sludge sludge-2"></div>
+      <div class="sludge sludge-3"></div>
+    </div>
+
+    <div class="toxic-wordmark">
+      <span class="top">TRASH-TALK</span>
+      <span class="bottom">STUDIOS</span>
+    </div>
+
+    <div class="tagline">TRASH TALK. REAL SKILL.</div>
+  `;
+}
 
 function createElementFromTemplate(item) {
   const el = document.createElement('article');
@@ -101,18 +133,17 @@ function createElementFromTemplate(item) {
   if (item.type === 'note') {
     el.innerHTML = item.html;
   } else {
-    const shapeClass = item.shape || 'circle';
-    el.classList.add(`sticker-${shapeClass}`);
+    const shape = item.shape || 'circle';
+    el.classList.add(`sticker-${shape}`);
     el.innerHTML = `<span>${item.text || 'NEW'}</span><div class="sticker-pin"></div>`;
   }
 
   return el;
 }
 
-function getBoardState() {
+function saveBoardState() {
   const notes = [...board.querySelectorAll('.note')].map((note) => {
-    const transform = note.style.transform || '';
-    const match = transform.match(/rotate\(([^)]+)\)/);
+    const match = (note.style.transform || '').match(/rotate\(([^)]+)\)/);
     return {
       id: note.dataset.id,
       left: note.style.left,
@@ -126,8 +157,7 @@ function getBoardState() {
   });
 
   const stickers = [...board.querySelectorAll('.sticker')].map((sticker) => {
-    const transform = sticker.style.transform || '';
-    const match = transform.match(/rotate\(([^)]+)\)/);
+    const match = (sticker.style.transform || '').match(/rotate\(([^)]+)\)/);
     const shape = [...sticker.classList].find((cls) => cls.startsWith('sticker-'))?.replace('sticker-', '') || 'circle';
     return {
       id: sticker.dataset.id,
@@ -142,88 +172,35 @@ function getBoardState() {
     };
   });
 
-  return { notes, stickers };
-}
-
-function saveBoardState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(getBoardState()));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ notes, stickers }));
 }
 
 function renderDefaultBoard() {
-  board.innerHTML = `
-    <div class="toxic-bg-text">TRASHTALKSTUDiOZ</div>
-    <div class="hero-portrait" aria-label="Toxic glam portrait illustration">
-      <div class="portrait-hair"></div>
-      <div class="portrait-head">
-        <div class="eye left"></div>
-        <div class="eye right"></div>
-        <div class="nose"></div>
-        <div class="smile"></div>
-      </div>
-      <div class="portrait-gas-mask">
-        <div class="mask-top"></div>
-        <div class="mask-body"></div>
-        <div class="mask-filter"></div>
-      </div>
-      <div class="trash-bin"></div>
-      <div class="drip drip-1"></div>
-      <div class="drip drip-2"></div>
-      <div class="drip drip-3"></div>
-    </div>
-  `;
-
-  defaultLayout.notes.forEach((note) => {
-    board.appendChild(createElementFromTemplate({ ...note, type: 'note' }));
-  });
-
-  defaultLayout.stickers.forEach((sticker) => {
-    board.appendChild(createElementFromTemplate({ ...sticker, type: 'sticker' }));
-  });
-
+  makeBoardArt();
+  defaultLayout.notes.forEach((note) => board.appendChild(createElementFromTemplate({ ...note, type: 'note' })));
+  defaultLayout.stickers.forEach((sticker) => board.appendChild(createElementFromTemplate({ ...sticker, type: 'sticker' })));
   bindInteractiveItems();
   refreshEditMode();
   saveBoardState();
 }
 
 function restoreBoardState() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (!saved) {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) {
     renderDefaultBoard();
     return;
   }
 
   try {
-    const parsed = JSON.parse(saved);
+    const parsed = JSON.parse(raw);
     if (!parsed.notes || !parsed.stickers) {
       renderDefaultBoard();
       return;
     }
 
-    board.innerHTML = `
-      <div class="toxic-bg-text">TRASHTALKSTUDiOZ</div>
-      <div class="hero-portrait" aria-label="Toxic glam portrait illustration">
-        <div class="portrait-hair"></div>
-        <div class="portrait-head">
-          <div class="eye left"></div>
-          <div class="eye right"></div>
-          <div class="nose"></div>
-          <div class="smile"></div>
-        </div>
-        <div class="portrait-gas-mask">
-          <div class="mask-top"></div>
-          <div class="mask-body"></div>
-          <div class="mask-filter"></div>
-        </div>
-        <div class="trash-bin"></div>
-        <div class="drip drip-1"></div>
-        <div class="drip drip-2"></div>
-        <div class="drip drip-3"></div>
-      </div>
-    `;
-
+    makeBoardArt();
     parsed.notes.forEach((note) => board.appendChild(createElementFromTemplate({ ...note, type: 'note' })));
     parsed.stickers.forEach((sticker) => board.appendChild(createElementFromTemplate({ ...sticker, type: 'sticker' })));
-
     bindInteractiveItems();
     refreshEditMode();
   } catch (error) {
@@ -296,7 +273,7 @@ function addNote() {
   const note = document.createElement('article');
   note.className = 'note';
   note.dataset.id = `note-${Date.now()}`;
-  note.style.left = '52%';
+  note.style.left = '53%';
   note.style.top = '22%';
   note.style.width = '260px';
   note.style.height = '190px';
@@ -355,4 +332,3 @@ resetBoardBtn.addEventListener('click', resetBoard);
 
 restoreBoardState();
 window.addEventListener('beforeunload', saveBoardState);
-
