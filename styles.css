@@ -140,7 +140,7 @@ h1 {
 
 .board {
   position: relative;
-  min-height: 980px;
+  min-height: 1080px;
   background:
     linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.18)),
     radial-gradient(circle at center, rgba(126,252,79,0.1), transparent 18%),
@@ -698,4 +698,44 @@ a.link-soon::after {
   font-size: 0.75em;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* Keep the big hero title inside its note */
+.note[data-id="hero"] h2 {
+  font-size: clamp(20px, 2vw, 27px);
+}
+
+/* Phones: stack notes and stickers under the artwork instead of free positioning */
+@media (max-width: 680px) {
+  .board {
+    min-height: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 18px 14px;
+    padding: 600px 14px 60px;
+  }
+
+  .board .note,
+  .board .sticker {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    z-index: 6;
+  }
+
+  .board .note {
+    flex: 1 1 100%;
+    width: auto !important;
+    max-width: 420px;
+    height: auto !important;
+    min-height: 0;
+  }
+
+  .board .sticker {
+    flex: 0 0 auto;
+    width: 96px !important;
+    height: 96px !important;
+  }
 }

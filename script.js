@@ -33,9 +33,9 @@ const defaultLayout = {
       id: 'hero',
       type: 'note',
       left: '2%',
-      top: '8%',
-      width: '430px',
-      height: '190px',
+      top: '4%',
+      width: '330px',
+      height: '240px',
       rotate: '-1deg',
       color: '#f7ea65',
       html: `<div class="note-pin"></div><p class="label">EMPIRE SIGNAL</p><h2>TRASHTALKSTUDiOZ</h2><p class="meta-line">Creator coin / toxic culture / onchain experiments / web3 builder energy</p><div class="cta-row"><a data-link="zora" class="chip-link">Zora</a><a data-link="base" class="chip-link">Base</a><a data-link="onchain" class="chip-link">Onchain</a></div>`
@@ -43,10 +43,10 @@ const defaultLayout = {
     {
       id: 'coin',
       type: 'note',
-      left: '42%',
-      top: '16%',
-      width: '320px',
-      height: '220px',
+      left: '2.5%',
+      top: '29%',
+      width: '290px',
+      height: '240px',
       rotate: '2deg',
       color: '#a7f0d4',
       html: `<div class="note-pin"></div><p class="label">CREATOR COIN</p><h3>TRASHTALK</h3><p>Built for culture, hype, and creator-first value in the onchain economy.</p><div class="link-stack"><a data-link="zoraCoin">Zora coin</a><a data-link="baseChain">Base chain</a></div>`
@@ -54,10 +54,10 @@ const defaultLayout = {
     {
       id: 'projects',
       type: 'note',
-      left: '62%',
-      top: '38%',
-      width: '290px',
-      height: '250px',
+      left: '78.5%',
+      top: '26%',
+      width: '270px',
+      height: '235px',
       rotate: '-3deg',
       color: '#f5b7d7',
       html: `<div class="note-pin"></div><p class="label">PROJECTS</p><ul><li>Creator coin launch</li><li>Base-native drops</li><li>Web3 identity stack</li><li>Culture-fueled media</li></ul>`
@@ -65,9 +65,9 @@ const defaultLayout = {
     {
       id: 'build',
       type: 'note',
-      left: '12%',
-      top: '48%',
-      width: '300px',
+      left: '2%',
+      top: '54%',
+      width: '290px',
       height: '235px',
       rotate: '1deg',
       color: '#b9d7ff',
@@ -76,10 +76,10 @@ const defaultLayout = {
     {
       id: 'brief',
       type: 'note',
-      left: '38%',
-      top: '62%',
-      width: '330px',
-      height: '200px',
+      left: '78%',
+      top: '51%',
+      width: '270px',
+      height: '190px',
       rotate: '-2deg',
       color: '#ffc9a1',
       html: `<div class="note-pin"></div><p class="label">EMPIRE BRIEF</p><p>Self-built internet empire for creators, liquidity, culture, and high-voltage community.</p>`
@@ -87,20 +87,20 @@ const defaultLayout = {
     {
       id: 'links',
       type: 'note',
-      left: '72%',
-      top: '16%',
-      width: '260px',
-      height: '185px',
-      rotate: '4deg',
+      left: '78%',
+      top: '5%',
+      width: '270px',
+      height: '190px',
+      rotate: '3deg',
       color: '#d9f7a8',
       html: `<div class="note-pin"></div><p class="label">LINKS</p><div class="stack-links"><a data-link="x">Twitter / X</a><a data-link="farcaster">Farcaster</a><a data-link="instagram">Instagram</a></div>`
     }
   ],
   stickers: [
-    { id: 'sticker-1', type: 'sticker', left: '56%', top: '72%', width: '120px', height: '120px', rotate: '-12deg', color: '#ff5d73', text: 'ZORA', shape: 'circle' },
-    { id: 'sticker-2', type: 'sticker', left: '71%', top: '68%', width: '120px', height: '120px', rotate: '8deg', color: '#4de1c3', text: 'BASE', shape: 'blob' },
-    { id: 'sticker-3', type: 'sticker', left: '22%', top: '76%', width: '120px', height: '120px', rotate: '10deg', color: '#ffd166', text: 'DROP', shape: 'star' },
-    { id: 'sticker-4', type: 'sticker', left: '7%', top: '22%', width: '120px', height: '120px', rotate: '-8deg', color: '#9b8cff', text: 'EMPIRE', shape: 'hex' }
+    { id: 'sticker-1', type: 'sticker', left: '60%', top: '80%', width: '120px', height: '120px', rotate: '-12deg', color: '#ff5d73', text: 'ZORA', shape: 'circle' },
+    { id: 'sticker-2', type: 'sticker', left: '70%', top: '74%', width: '120px', height: '120px', rotate: '8deg', color: '#4de1c3', text: 'BASE', shape: 'blob' },
+    { id: 'sticker-3', type: 'sticker', left: '27%', top: '80%', width: '120px', height: '120px', rotate: '10deg', color: '#ffd166', text: 'DROP', shape: 'star' },
+    { id: 'sticker-4', type: 'sticker', left: '10%', top: '80%', width: '120px', height: '120px', rotate: '-8deg', color: '#9b8cff', text: 'EMPIRE', shape: 'hex' }
   ]
 };
 
