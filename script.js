@@ -4,7 +4,28 @@ const addStickerBtn = document.querySelector('#add-sticker');
 const toggleEditBtn = document.querySelector('#toggle-edit');
 const resetBoardBtn = document.querySelector('#reset-board');
 
+const exportBtn = document.querySelector('#export-layout');
+const toolbar = document.querySelector('.top-actions');
+
 const STORAGE_KEY = 'trashtalkstudioz-toxic-board';
+
+// Edit tools only appear when the page is opened with ?edit at the end of the URL.
+const IS_EDITOR = new URLSearchParams(window.location.search).has('edit');
+
+// ---------------------------------------------------------------
+// LINKS — paste your real URLs here. Leave one empty ('') and its
+// button shows as "soon" instead of a dead link.
+// ---------------------------------------------------------------
+const LINKS = {
+  zora: '',        // Zora profile
+  base: '',        // Base address / basescan page
+  onchain: '',     // any onchain hub link
+  zoraCoin: '',    // TRASHTALK coin page on Zora
+  baseChain: '',   // TRASHTALK contract on Base
+  x: '',           // Twitter / X
+  farcaster: '',   // Farcaster / Warpcast
+  instagram: ''    // Instagram
+};
 
 const defaultLayout = {
   notes: [
@@ -17,7 +38,7 @@ const defaultLayout = {
       height: '190px',
       rotate: '-1deg',
       color: '#f7ea65',
-      html: `<div class="note-pin"></div><p class="label">EMPIRE SIGNAL</p><h2>TRASHTALKSTUDiOZ</h2><p class="meta-line">Creator coin / toxic culture / onchain experiments / web3 builder energy</p><div class="cta-row"><a href="#" class="chip-link">Zora</a><a href="#" class="chip-link">Base</a><a href="#" class="chip-link">Onchain</a></div>`
+      html: `<div class="note-pin"></div><p class="label">EMPIRE SIGNAL</p><h2>TRASHTALKSTUDiOZ</h2><p class="meta-line">Creator coin / toxic culture / onchain experiments / web3 builder energy</p><div class="cta-row"><a data-link="zora" class="chip-link">Zora</a><a data-link="base" class="chip-link">Base</a><a data-link="onchain" class="chip-link">Onchain</a></div>`
     },
     {
       id: 'coin',
@@ -28,7 +49,7 @@ const defaultLayout = {
       height: '220px',
       rotate: '2deg',
       color: '#a7f0d4',
-      html: `<div class="note-pin"></div><p class="label">CREATOR COIN</p><h3>TRASHTALK</h3><p>Built for culture, hype, and creator-first value in the onchain economy.</p><div class="link-stack"><a href="#">Zora coin</a><a href="#">Base chain</a></div>`
+      html: `<div class="note-pin"></div><p class="label">CREATOR COIN</p><h3>TRASHTALK</h3><p>Built for culture, hype, and creator-first value in the onchain economy.</p><div class="link-stack"><a data-link="zoraCoin">Zora coin</a><a data-link="baseChain">Base chain</a></div>`
     },
     {
       id: 'projects',
@@ -72,7 +93,7 @@ const defaultLayout = {
       height: '185px',
       rotate: '4deg',
       color: '#d9f7a8',
-      html: `<div class="note-pin"></div><p class="label">LINKS</p><div class="stack-links"><a href="#">Twitter / X</a><a href="#">Farcaster</a><a href="#">Instagram</a></div>`
+      html: `<div class="note-pin"></div><p class="label">LINKS</p><div class="stack-links"><a data-link="x">Twitter / X</a><a data-link="farcaster">Farcaster</a><a data-link="instagram">Instagram</a></div>`
     }
   ],
   stickers: [
@@ -84,6 +105,66 @@ const defaultLayout = {
 };
 
 let editMode = false;
+
+function applyLinks() {
+  board.querySelectorAll('a[data-link]').forEach((a) => {
+    const url = (LINKS[a.dataset.link] || '').trim();
+    if (url) {
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.classList.remove('link-soon');
+      a.removeAttribute('aria-disabled');
+    } else {
+      a.removeAttribute('href');
+      a.classList.add('link-soon');
+      a.setAttribute('aria-disabled', 'true');
+    }
+  });
+}
+
+function currentLayout() {
+  const notes = [...board.querySelectorAll('.note')].map((note) => {
+    const match = (note.style.transform || '').match(/rotate\(([^)]+)\)/);
+    return {
+      id: note.dataset.id,
+      left: note.style.left,
+      top: note.style.top,
+      width: note.style.width,
+      height: note.style.height,
+      rotate: match ? match[1] : '0deg',
+      color: getComputedStyle(note).getPropertyValue('--note-color').trim(),
+      html: note.innerHTML
+    };
+  });
+
+  const stickers = [...board.querySelectorAll('.sticker')].map((sticker) => {
+    const match = (sticker.style.transform || '').match(/rotate\(([^)]+)\)/);
+    const shape = [...sticker.classList].find((cls) => cls.startsWith('sticker-'))?.replace('sticker-', '') || 'circle';
+    return {
+      id: sticker.dataset.id,
+      left: sticker.style.left,
+      top: sticker.style.top,
+      width: sticker.style.width,
+      height: sticker.style.height,
+      rotate: match ? match[1] : '0deg',
+      color: getComputedStyle(sticker).getPropertyValue('--sticker-color').trim(),
+      text: sticker.querySelector('span')?.textContent || 'NEW',
+      shape
+    };
+  });
+
+  return { notes, stickers };
+}
+
+function renderLayout(layout) {
+  makeBoardArt();
+  layout.notes.forEach((note) => board.appendChild(createElementFromTemplate({ ...note, type: 'note' })));
+  layout.stickers.forEach((sticker) => board.appendChild(createElementFromTemplate({ ...sticker, type: 'sticker' })));
+  applyLinks();
+  bindInteractiveItems();
+  refreshEditMode();
+}
 let dragState = null;
 
 function makeBoardArt() {
@@ -142,70 +223,65 @@ function createElementFromTemplate(item) {
 }
 
 function saveBoardState() {
-  const notes = [...board.querySelectorAll('.note')].map((note) => {
-    const match = (note.style.transform || '').match(/rotate\(([^)]+)\)/);
-    return {
-      id: note.dataset.id,
-      left: note.style.left,
-      top: note.style.top,
-      width: note.style.width,
-      height: note.style.height,
-      rotate: match ? match[1] : '0deg',
-      color: getComputedStyle(note).getPropertyValue('--note-color').trim(),
-      html: note.innerHTML
-    };
-  });
+  // Drafts are only kept for the editor; visitors always see the published layout.
+  if (!IS_EDITOR) return;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(currentLayout()));
+  } catch (error) {
+    /* storage unavailable — ignore */
+  }
+}
 
-  const stickers = [...board.querySelectorAll('.sticker')].map((sticker) => {
-    const match = (sticker.style.transform || '').match(/rotate\(([^)]+)\)/);
-    const shape = [...sticker.classList].find((cls) => cls.startsWith('sticker-'))?.replace('sticker-', '') || 'circle';
-    return {
-      id: sticker.dataset.id,
-      left: sticker.style.left,
-      top: sticker.style.top,
-      width: sticker.style.width,
-      height: sticker.style.height,
-      rotate: match ? match[1] : '0deg',
-      color: getComputedStyle(sticker).getPropertyValue('--sticker-color').trim(),
-      text: sticker.querySelector('span')?.textContent || 'NEW',
-      shape
-    };
-  });
+// Published layout = layout.json if it exists next to index.html, otherwise the built-in default.
+let publishedLayout = defaultLayout;
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ notes, stickers }));
+async function loadPublishedLayout() {
+  try {
+    const response = await fetch('layout.json', { cache: 'no-store' });
+    if (response.ok) {
+      const parsed = await response.json();
+      if (parsed.notes && parsed.stickers) publishedLayout = parsed;
+    }
+  } catch (error) {
+    /* no layout.json (or opened from a local file) — use the default */
+  }
 }
 
 function renderDefaultBoard() {
-  makeBoardArt();
-  defaultLayout.notes.forEach((note) => board.appendChild(createElementFromTemplate({ ...note, type: 'note' })));
-  defaultLayout.stickers.forEach((sticker) => board.appendChild(createElementFromTemplate({ ...sticker, type: 'sticker' })));
-  bindInteractiveItems();
-  refreshEditMode();
+  renderLayout(publishedLayout);
   saveBoardState();
 }
 
 function restoreBoardState() {
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if (!raw) {
-    renderDefaultBoard();
+  if (!IS_EDITOR) {
+    renderLayout(publishedLayout);
     return;
   }
 
+  let parsed = null;
   try {
-    const parsed = JSON.parse(raw);
-    if (!parsed.notes || !parsed.stickers) {
-      renderDefaultBoard();
-      return;
-    }
-
-    makeBoardArt();
-    parsed.notes.forEach((note) => board.appendChild(createElementFromTemplate({ ...note, type: 'note' })));
-    parsed.stickers.forEach((sticker) => board.appendChild(createElementFromTemplate({ ...sticker, type: 'sticker' })));
-    bindInteractiveItems();
-    refreshEditMode();
+    parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
   } catch (error) {
+    parsed = null;
+  }
+
+  if (parsed && parsed.notes && parsed.stickers) {
+    renderLayout(parsed);
+  } else {
     renderDefaultBoard();
   }
+}
+
+function exportLayout() {
+  const blob = new Blob([JSON.stringify(currentLayout(), null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'layout.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
 }
 
 function makeDraggable(item) {
@@ -262,6 +338,7 @@ function bindInteractiveItems() {
 }
 
 function refreshEditMode() {
+  if (!IS_EDITOR) editMode = false;
   document.body.classList.toggle('edit-mode', editMode);
   [...document.querySelectorAll('.note, .sticker')].forEach((item) => {
     item.setAttribute('contenteditable', editMode ? 'true' : 'false');
@@ -321,7 +398,10 @@ function resetBoard() {
   renderDefaultBoard();
 }
 
+toolbar.hidden = !IS_EDITOR;
+
 addNoteBtn.addEventListener('click', addNote);
+exportBtn.addEventListener('click', exportLayout);
 addStickerBtn.addEventListener('click', addSticker);
 toggleEditBtn.addEventListener('click', () => {
   editMode = !editMode;
@@ -330,5 +410,5 @@ toggleEditBtn.addEventListener('click', () => {
 });
 resetBoardBtn.addEventListener('click', resetBoard);
 
-restoreBoardState();
+loadPublishedLayout().then(restoreBoardState);
 window.addEventListener('beforeunload', saveBoardState);

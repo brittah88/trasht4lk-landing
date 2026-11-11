@@ -1,43 +1,47 @@
-# TRASHTALKSTUDiOZ Memo Board
+# TRASHTALKSTUDiOZ — Landing Board
 
-A self-hosted landing page for TRASHTALKSTUDiOZ with a customizable, poster-board style layout inspired by memo board / pinboard interfaces.
+The landing page for **TRASHTALKSTUDiOZ** and the **TRASHTALK** creator coin on Zora / Base.
+A toxic-neon poster board with pinned notes and stickers you can rearrange and rewrite right in the browser.
 
-## Features
-- Memo-board style landing page for a crypto/web3 creative empire
-- Editable sections and content blocks
-- Sticker / pin elements for creator coin and project branding
-- Fully customizable layout with drag-and-drop positioning
-- Easy to self-host on any static hosting setup
-- Links are easy to replace later
+No framework, no build step — three files (`index.html`, `styles.css`, `script.js`) that run on any static host
+(GitHub Pages, Vercel, Netlify).
 
-## Quick start
-
-Open `index.html` in a browser, or serve locally:
+## Preview locally
 
 ```bash
-cd trasht4lk-landing
 python3 -m http.server 8000
 ```
 
-Then open:
+Visitor view: http://localhost:8000
+Editor view: http://localhost:8000/?edit
 
-```text
-http://localhost:8000
+## Add your links
+
+Open `script.js` and fill in the `LINKS` block near the top:
+
+```js
+const LINKS = {
+  zora: 'https://zora.co/@yourname',
+  zoraCoin: 'https://zora.co/coin/...',
+  x: 'https://x.com/yourname',
+  ...
+};
 ```
 
-## Customize content
-- Edit text directly in the board while `Edit Mode` is enabled
-- Drag notes and stickers anywhere on the board
-- Add more notes and stickers using the toolbar buttons
-- Replace placeholder links in the markup or text blocks later
+Any link left as `''` shows up dimmed with a "soon" tag instead of a dead link.
 
-## Notes
-This is intentionally lightweight so it remains easy to host and modify without a framework.
+## Edit the board
 
-## Branding
-- Brand: TRASHTALKSTUDiOZ
-- Focus: creator coin, Zora, Base, crypto, web3, culture, creator economy
+1. Open the page with `?edit` on the end of the URL. The toolbar only appears for you — visitors never see it.
+2. Click **Edit Mode**, then drag notes and stickers, or click into them to change the text.
+   Use **+ Add Note** / **+ Add Sticker** for more. Your draft is saved in your browser as you go.
+3. Click **Export Layout**. It downloads a `layout.json` file.
+4. Upload `layout.json` to the repo, next to `index.html`. Every visitor now sees your layout.
+
+**Reset** throws away your browser draft and goes back to the published layout.
+
+> Edits only go live when `layout.json` is in the repo. Until then, visitors see the built-in default layout in `script.js`.
 
 ## License
-MIT
 
+MIT

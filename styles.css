@@ -681,3 +681,21 @@ h1 {
   .toxic-wordmark { top: 420px; }
   .tagline { bottom: 10px; letter-spacing: 0.18em; }
 }
+
+/* Edit toolbar is hidden for visitors (shown only with ?edit) */
+.top-actions[hidden] {
+  display: none !important;
+}
+
+/* Links that don't have a URL yet */
+a.link-soon {
+  opacity: 0.55;
+  cursor: default;
+}
+
+a.link-soon::after {
+  content: ' · soon';
+  font-size: 0.75em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
